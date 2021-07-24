@@ -3,7 +3,7 @@ const exec = util.promisify(require('child_process').exec)
 
 
 const contractName = "LPLottery"
-const contractAddress = "0xE7fFD13C2090530b81D62Be7FCFb1765104d2eF0"
+const contractAddress = ""
 const network = "testnet"
 
 const verify = async (_contractName, _contractAddress, _network) => {

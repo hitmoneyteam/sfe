@@ -1,12 +1,12 @@
 const Web3 = require('web3')
 const fs = require('fs')
 
-const network = "testnet"
-const contractName = "LpLottery"
+const network = "bsc"
+const contractName = "Lplottery"
 const constructorArgs = [
     "0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3",
-    "0xf8053879b20f29d1E38F9a2708B69981aC81DC48",
-    "0x1777E0a1258aDF14C9e03EA51f219C7E7c155393"
+    "0x3ad9594151886ce8538c1ff615efa2385a8c3a88",
+    "0x4Fabb145d64652a948d72533023f6E7A623C7C53"
 ]
 
 const secrets = JSON.parse(fs.readFileSync(`./secrets.json`, 'utf8'))

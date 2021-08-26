@@ -8,20 +8,22 @@ contract Lottery {
     using SafeMath for uint256;
 
     uint256 private prizeValue;
+    uint256 private minimumAmountInBusd;
     address private manager;
     uint256 private entriesRequired;
     uint256 private currentTicketId;
     bool private isActive;
     mapping(uint256 => address) allParticipants;
 
-    constructor(uint256 _prizeValue, address _manager) {
+    constructor(uint256 _prizeValue, uint256 _minimumAmountInBusd,address _manager) {
         prizeValue = _prizeValue;
+        minimumAmountInBusd=_minimumAmountInBusd;
         entriesRequired = _prizeValue.div(10**18);
         manager = _manager;
         isActive = true;
     }
 
-    function participate(uint256 _amount, address _particpant) public {
+    function participate(uint256 _amount, address _particpant) external {
         require(entriesRequired != 0, "context is full");
         require(isActive, "context is not active anymore");
 
@@ -38,7 +40,7 @@ contract Lottery {
         emit PlayerParticipated(_particpant);
     }
 
-    function declareWinner() public restricted returns(address){
+    function declareWinner() external restricted returns(address){
         require(isActive,"Context is not active anymore");
         require(entriesRequired == 0, "context is not full yet");
         isActive = false;
@@ -46,7 +48,7 @@ contract Lottery {
         return allParticipants[winnerTicketNo];
     }
 
-    function getEntriesRequired() public view returns(uint256){
+    function getEntriesRequired() external view returns(uint256){
         return entriesRequired;
     }
 
@@ -63,13 +65,19 @@ contract Lottery {
             );
     }
 
-    function getPrizeValue() public view returns(uint256) {
+    function getPrizeValue() external view returns(uint256) {
         return prizeValue;
     }
+
+    function getMinimumAmountInBusd() external view returns(uint256) {
+        return minimumAmountInBusd;
+    }
+
     modifier restricted() {
         require(msg.sender == manager);
         _;
     }
+    
     event PlayerParticipated(
         address playerAddress
     );

@@ -134,4 +134,4 @@ contract PancakeClass is ReentrancyGuard {
         return (tokenSafeMars < tokenBUSD) ? true : false;
     }
 
-}
+} 
